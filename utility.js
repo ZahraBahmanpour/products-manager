@@ -33,7 +33,12 @@ export function createPagination(productCount) {
   document.querySelector('ul.pagination').innerHTML = lis;
 }
 
-export function showToast(message) {
+export function showToast(message, color = 'green') {
+  let gradiantColor = 'linear-gradient(to right, #00b09b, #96c93d)';
+  if (color === 'red') {
+    gradiantColor =
+      'linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))';
+  }
   Toastify({
     text: `${message}`,
     duration: 4000,
@@ -44,9 +49,9 @@ export function showToast(message) {
     position: 'right',
     stopOnFocus: true,
     style: {
-      background: 'linear-gradient(to right, #00b09b, #96c93d)',
+      background: gradiantColor,
     },
-    onClick: function () {}, // Callback after click
+    onClick: function () {},
   }).showToast();
 }
 

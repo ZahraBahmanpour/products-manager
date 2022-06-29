@@ -86,7 +86,7 @@ export function deleteProduct(productId) {
   })
     .then((response) => response.json())
     .then(() => {
-      showToast('Successfully Deleted');
+      showToast('Successfully Deleted', 'red');
       readProducts();
     });
 }
