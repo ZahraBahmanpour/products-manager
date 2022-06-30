@@ -14,38 +14,34 @@ export let currentProductId;
 const productsTable = document.querySelector('#products tbody');
 
 /////// CREATE ///////
-export function createNewProduct(newProduct) {
-  return fetch(`${API_URL}/products`, {
+export async function createNewProduct(newProduct) {
+  const res = await fetch(`${API_URL}/products`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
     body: JSON.stringify(newProduct),
-  })
-    .then((res) => res.json())
-    .then((product) => {
-      addToDOM(product);
-      clearInputs();
-    });
+  });
+  const createdProduct = await res.json();
+  addToDOM(createdProduct);
+  clearInputs();
 }
 
 // READ
-export function readProducts() {
+export async function readProducts() {
   productsTable.innerHTML = '';
-  fetch(
+  const res = await fetch(
     `${API_URL}/products${generateQueryParams(
       currentPage,
       currentSort,
       queryString
     )}`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      const { products, count } = data;
-      createPagination(count);
-      products.forEach(addToDOM);
-    });
+  );
+  const data = await res.json();
+  const { products, count } = data;
+  createPagination(count);
+  products.forEach(addToDOM);
 }
 /////// UPDATE ///////
 export function updateProduct(event, product) {
@@ -80,15 +76,13 @@ function updateOnFrontEnd(product) {
   showToast('Successfully Updated');
 }
 /////// DELETE ///////
-export function deleteProduct(productId) {
-  return fetch(`${API_URL}/products/${productId}`, {
+export async function deleteProduct(productId) {
+  const res = await fetch(`${API_URL}/products/${productId}`, {
     method: 'DELETE',
-  })
-    .then((response) => response.json())
-    .then(() => {
-      showToast('Successfully Deleted', 'red');
-      readProducts();
-    });
+  });
+  const data = await res.json();
+  showToast('Successfully Deleted', 'red');
+  readProducts();
 }
 
 // UPDATE DOM
