@@ -43,6 +43,7 @@ export async function readProducts() {
   createPagination(count);
   products.forEach(addToDOM);
 }
+async function readProduct() {}
 /////// UPDATE ///////
 export async function updateProduct(event, product) {
   event.preventDefault();
@@ -116,6 +117,14 @@ function generateTableCells(product) {
   const createDateCell = document.createElement('td');
   createDateCell.innerHTML = new Date(product.createdAt).toDateString();
 
+  const viewButton = document.createElement('button');
+  viewButton.dataset.id = product.id;
+  viewButton.innerText = 'VIEW';
+  viewButton.className = 'btn btn-warning btn-sm m-1';
+  viewButton.dataset.bsToggle = 'modal';
+  viewButton.dataset.bsTarget = '#viewModal';
+  viewButton.addEventListener('click', () => viewProduct(product));
+
   const editButton = document.createElement('button');
   editButton.dataset.id = product.id;
   editButton.innerText = 'UPDATE';
@@ -131,6 +140,7 @@ function generateTableCells(product) {
   deleteButton.addEventListener('click', () => (currentProductId = product.id));
 
   const actionCell = document.createElement('td');
+  actionCell.appendChild(viewButton);
   actionCell.appendChild(editButton);
   actionCell.appendChild(deleteButton);
   return { nameCell, priceCell, countCell, createDateCell, actionCell };
@@ -142,4 +152,19 @@ function editProduct(product) {
   productForm.querySelector('#countInStock').value = product.countInStock;
   productForm.querySelector('#btn-add-product').innerHTML = 'Update Product';
   currentProductId = product.id;
+}
+
+async function viewProduct(product) {
+  const res = await fetch(`${API_URL}/products/${product.id}`);
+  const productWithDetails = await res.json();
+  const viewModal = document.querySelector('#viewModal .modal-body');
+  viewModal.innerHTML = `
+  <div class="card p-3 m-3">
+  <div class="row"><div class="col-4"><strong>Description</strong></div><div class="col-8">${productWithDetails.description}</div></div>
+  </div>
+  <div class="card p-3 m-3">
+  <div class="row"><div class="col-4"><strong>Department</strong></div><div class="col-8">${productWithDetails.department}</div></div>
+  </div>
+  <div class="card p-3 m-3"><div class="row"><div class="col-4"><strong>Material</strong></div><div class="col-8">${productWithDetails.material}</div></div>
+  </div>`;
 }
