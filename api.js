@@ -92,6 +92,7 @@ export async function deleteProduct(productId) {
 function addToDOM(product) {
   const productRow = document.createElement('tr');
   productRow.dataset.id = product.id;
+  productRow.style.lineHeight = '40px';
   const { nameCell, priceCell, countCell, createDateCell, actionCell } =
     generateTableCells(product);
 
@@ -107,15 +108,20 @@ function addToDOM(product) {
 function generateTableCells(product) {
   const nameCell = document.createElement('td');
   nameCell.innerHTML = product.name;
+  nameCell.title = product.name;
 
   const priceCell = document.createElement('td');
   priceCell.innerHTML = product.price;
+  priceCell.title = product.price;
 
   const countCell = document.createElement('td');
   countCell.innerHTML = product.countInStock;
+  countCell.title = product.countInStock;
 
   const createDateCell = document.createElement('td');
-  createDateCell.innerHTML = new Date(product.createdAt).toDateString();
+  const date = new Date(product.createdAt).toDateString();
+  createDateCell.innerHTML = date;
+  createDateCell.title = date;
 
   const viewButton = document.createElement('button');
   viewButton.dataset.id = product.id;
