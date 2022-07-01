@@ -44,20 +44,22 @@ export async function readProducts() {
   products.forEach(addToDOM);
 }
 /////// UPDATE ///////
-export function updateProduct(event, product) {
+export async function updateProduct(event, product) {
   event.preventDefault();
-  let updatedProduct = gatherFormData();
-  updateOnBackend(updatedProduct, product.id).then(updateOnFrontEnd);
+  const updatedProduct = gatherFormData();
+  const updatedItem = await updateOnBackend(updatedProduct, product.id);
+  updateOnFrontEnd(updatedItem);
 }
 
-function updateOnBackend(updatedProduct, id) {
-  return fetch(`${API_URL}/products/${id}`, {
+async function updateOnBackend(updatedProduct, id) {
+  const res = await fetch(`${API_URL}/products/${id}`, {
     method: 'PUT',
     body: JSON.stringify(updatedProduct),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((res) => res.json());
+  });
+  return await res.json();
 }
 
 function updateOnFrontEnd(product) {
