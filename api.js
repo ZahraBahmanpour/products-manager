@@ -15,41 +15,55 @@ const productsTable = document.querySelector('#products tbody');
 
 /////// CREATE ///////
 export async function createNewProduct(newProduct) {
-  const res = await fetch(`${API_URL}/products`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify(newProduct),
-  });
-  const createdProduct = await res.json();
-  addToDOM(createdProduct);
-  clearInputs();
+  try {
+    const res = await fetch(`${API_URL}/products`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(newProduct),
+    });
+    const createdProduct = await res.json();
+    addToDOM(createdProduct);
+    clearInputs();
+  } catch (error) {
+    showToast('Problem occured while creating new product', 'red');
+    console.log(error.message);
+  }
 }
 
 // READ
 export async function readProducts() {
   productsTable.innerHTML = '';
-  const res = await fetch(
-    `${API_URL}/products${generateQueryParams(
-      currentPage,
-      currentSort,
-      queryString
-    )}`
-  );
-  const data = await res.json();
-  const { products, count } = data;
-  createPagination(count);
-  products.forEach(addToDOM);
+  try {
+    const res = await fetch(
+      `${API_URL}/products${generateQueryParams(
+        currentPage,
+        currentSort,
+        queryString
+      )}`
+    );
+    const data = await res.json();
+    const { products, count } = data;
+    createPagination(count);
+    products.forEach(addToDOM);
+  } catch (error) {
+    showToast('Problem occured while reading products!', 'red');
+    console.log(error.message);
+  }
 }
-async function readProduct() {}
 /////// UPDATE ///////
 export async function updateProduct(event, product) {
   event.preventDefault();
   const updatedProduct = gatherFormData();
-  const updatedItem = await updateOnBackend(updatedProduct, product.id);
-  updateOnFrontEnd(updatedItem);
+  try {
+    const updatedItem = await updateOnBackend(updatedProduct, product.id);
+    updateOnFrontEnd(updatedItem);
+  } catch (error) {
+    showToast('Problem occured while updating product!', 'red');
+    console.log(error.message);
+  }
 }
 
 async function updateOnBackend(updatedProduct, id) {
@@ -80,12 +94,17 @@ function updateOnFrontEnd(product) {
 }
 /////// DELETE ///////
 export async function deleteProduct(productId) {
-  const res = await fetch(`${API_URL}/products/${productId}`, {
-    method: 'DELETE',
-  });
-  const data = await res.json();
-  showToast('Successfully Deleted', 'red');
-  readProducts();
+  try {
+    const res = await fetch(`${API_URL}/products/${productId}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    showToast('Successfully Deleted', 'red');
+    readProducts();
+  } catch (error) {
+    showToast('Problem occured deleting the product!', 'red');
+    console.log(error.message);
+  }
 }
 
 // UPDATE DOM
