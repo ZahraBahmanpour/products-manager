@@ -28,7 +28,7 @@ export async function createNewProduct(newProduct) {
     addToDOM(createdProduct);
     clearInputs();
   } catch (error) {
-    showToast('Problem occured while creating new product', 'red');
+    showToast('Problem occured while creating new product');
     console.log(error.message);
   }
 }
@@ -49,7 +49,7 @@ export async function readProducts() {
     createPagination(count);
     products.forEach(addToDOM);
   } catch (error) {
-    showToast('Problem occured while reading products!', 'red');
+    showToast('Problem occured while reading products!');
     console.log(error.message);
   }
 }
@@ -61,7 +61,7 @@ export async function updateProduct(event, product) {
     const updatedItem = await updateOnBackend(updatedProduct, product.id);
     updateOnFrontEnd(updatedItem);
   } catch (error) {
-    showToast('Problem occured while updating product!', 'red');
+    showToast('Problem occured while updating product!');
     console.log(error.message);
   }
 }
@@ -90,7 +90,7 @@ function updateOnFrontEnd(product) {
   document.querySelector('#btn-add-product').innerHTML = 'Add Product';
   clearInputs();
   currentProductId = undefined;
-  showToast('Successfully Updated');
+  showToast('Successfully Updated', 'green');
 }
 /////// DELETE ///////
 export async function deleteProduct(productId) {
@@ -99,10 +99,10 @@ export async function deleteProduct(productId) {
       method: 'DELETE',
     });
     const data = await res.json();
-    showToast('Successfully Deleted', 'red');
+    showToast('Successfully Deleted');
     readProducts();
   } catch (error) {
-    showToast('Problem occured deleting the product!', 'red');
+    showToast('Problem occured deleting the product!');
     console.log(error.message);
   }
 }

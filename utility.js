@@ -33,11 +33,11 @@ export function createPagination(productCount) {
   document.querySelector('ul.pagination').innerHTML = lis;
 }
 
-export function showToast(message, color = 'green') {
-  let gradiantColor = 'linear-gradient(to right, #00b09b, #96c93d)';
-  if (color === 'red') {
-    gradiantColor =
-      'linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))';
+export function showToast(message, color = 'red') {
+  let gradiantColor =
+    'linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))';
+  if (color === 'green') {
+    gradiantColor = 'linear-gradient(to right, #00b09b, #96c93d)';
   }
   Toastify({
     text: `${message}`,
