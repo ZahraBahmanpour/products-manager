@@ -53,6 +53,15 @@ export async function readProducts() {
     console.log(error.message);
   }
 }
+async function readProduct(id) {
+  try {
+    const res = await fetch(`${API_URL}/products/${id}`);
+    return res.json();
+  } catch (error) {
+    showToast('Problem occured while reading product details!');
+    console.log(error.message);
+  }
+}
 /////// UPDATE ///////
 export async function updateProduct(event, product) {
   event.preventDefault();
@@ -183,8 +192,7 @@ function editProduct(product) {
 }
 
 async function viewProduct(product) {
-  const res = await fetch(`${API_URL}/products/${product.id}`);
-  const productWithDetails = await res.json();
+  const productWithDetails = await readProduct(product.id);
   const viewModal = document.querySelector('#viewModal .modal-body');
   viewModal.innerHTML = `
   <div class="card p-3 m-3">
