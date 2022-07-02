@@ -125,21 +125,24 @@ function generateTableCells(product) {
 
   const viewButton = document.createElement('button');
   viewButton.dataset.id = product.id;
-  viewButton.innerText = 'VIEW';
-  viewButton.className = 'btn btn-warning btn-sm m-1';
+  viewButton.innerHTML = '<i class="bi bi-eye"></i>';
+  viewButton.title = 'VIEW';
+  viewButton.className = 'btn btn-warning btn-sm m-1 text-white';
   viewButton.dataset.bsToggle = 'modal';
   viewButton.dataset.bsTarget = '#viewModal';
   viewButton.addEventListener('click', () => viewProduct(product));
 
   const editButton = document.createElement('button');
   editButton.dataset.id = product.id;
-  editButton.innerText = 'UPDATE';
+  editButton.innerHTML = '<i class="bi bi-pen"></i>';
+  editButton.title = 'UPDATE';
   editButton.className = 'btn btn-primary btn-sm';
   editButton.addEventListener('click', () => editProduct(product));
 
   const deleteButton = document.createElement('button');
   deleteButton.dataset.id = product.id;
-  deleteButton.innerText = 'DELETE';
+  deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+  deleteButton.title = 'DELETE';
   deleteButton.className = 'btn btn-danger btn-sm m-1';
   deleteButton.dataset.bsToggle = 'modal';
   deleteButton.dataset.bsTarget = '#deleteModal';
