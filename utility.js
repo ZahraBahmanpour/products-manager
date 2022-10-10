@@ -74,3 +74,7 @@ export function gatherFormData() {
   }
   return undefined;
 }
+
+export function getData() {
+  return {}
+}
