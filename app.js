@@ -86,3 +86,5 @@ export function resetPagination() {
   lis.forEach((li) => li.classList.remove("active"));
   lis[0].classList.add("active");
 }
+
+// This is a test
