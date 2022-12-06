@@ -1,7 +1,8 @@
-import { productForm, queryString, currentSort, currentPage } from "./app.js";
+import { queryString, currentSort, currentPage } from "./app.js";
 import {
   clearInputs,
   createPagination,
+  gatherEditFormData,
   gatherFormData,
   generateQueryParams,
   showToast,
@@ -9,12 +10,13 @@ import {
 
 const API_URL = "https://6300a18859a8760a757d441c.mockapi.io";
 
-export let currentProductId;
-
 const productsTable = document.querySelector("#products tbody");
+export const productEditModal = document.querySelector("#editModal");
 
 /////// CREATE ///////
-export async function createNewProduct(newProduct) {
+export async function createNewProduct() {
+  event.preventDefault();
+  let newProduct = gatherFormData();
   try {
     const res = await fetch(`${API_URL}/products`, {
       method: "POST",
@@ -63,10 +65,10 @@ async function readProduct(id) {
   }
 }
 /////// UPDATE ///////
-export async function updateProduct(product) {
-  const updatedProduct = gatherFormData();
+export async function updateProduct(id) {
+  const updatedProduct = gatherEditFormData();
   try {
-    const updatedItem = await updateOnBackend(updatedProduct, product.id);
+    const updatedItem = await updateOnBackend(updatedProduct, id);
     updateOnFrontEnd(updatedItem);
   } catch (error) {
     showToast("Problem occured while updating product!");
@@ -97,7 +99,6 @@ function updateOnFrontEnd(product) {
   productRow.appendChild(actionCell);
   document.querySelector("#btn-add-product").innerHTML = "Add Product";
   clearInputs();
-  currentProductId = undefined;
   showToast("Successfully Updated", "green");
 }
 /////// DELETE ///////
@@ -164,6 +165,8 @@ function generateTableCells(product) {
   editButton.innerHTML = '<i class="bi bi-pen"></i>';
   editButton.title = "UPDATE";
   editButton.className = "btn btn-primary btn-sm";
+  editButton.dataset.bsToggle = "modal";
+  editButton.dataset.bsTarget = "#editModal";
   editButton.addEventListener("click", () => editProduct(product));
 
   const deleteButton = document.createElement("button");
@@ -173,7 +176,7 @@ function generateTableCells(product) {
   deleteButton.className = "btn btn-danger btn-sm m-1";
   deleteButton.dataset.bsToggle = "modal";
   deleteButton.dataset.bsTarget = "#deleteModal";
-  deleteButton.addEventListener("click", () => (currentProductId = product.id));
+  deleteButton.addEventListener("click", () => removeProduct(product.id));
 
   const actionCell = document.createElement("td");
   actionCell.appendChild(viewButton);
@@ -182,12 +185,15 @@ function generateTableCells(product) {
   return { nameCell, priceCell, countCell, createDateCell, actionCell };
 }
 
+function removeProduct(id) {
+  document.querySelector("#confirm-delete-btn").dataset.id = id;
+}
+
 function editProduct(product) {
-  productForm.querySelector("#name").value = product.name;
-  productForm.querySelector("#price").value = product.price;
-  productForm.querySelector("#countInStock").value = product.countInStock;
-  productForm.querySelector("#btn-add-product").innerHTML = "Update Product";
-  currentProductId = product.id;
+  productEditModal.querySelector("#name").value = product.name;
+  productEditModal.querySelector("#price").value = product.price;
+  productEditModal.querySelector("#countInStock").value = product.countInStock;
+  productEditModal.querySelector("#confirm-edit-btn").dataset.id = product.id;
 }
 
 async function viewProduct(product) {

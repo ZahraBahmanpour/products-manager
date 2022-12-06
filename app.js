@@ -3,7 +3,6 @@ import {
   deleteProduct,
   readProducts,
   updateProduct,
-  currentProductId,
 } from "./api.js";
 import { debounce, gatherFormData, clearInputs } from "./utility.js";
 
@@ -58,27 +57,20 @@ document.querySelector("ul.pagination").addEventListener("click", (event) => {
 document
   .querySelector("#confirm-delete-btn")
   .addEventListener("click", (event) => {
-    deleteProduct(currentProductId);
+    const id = event.target.dataset.id;
+    deleteProduct(id);
   });
 
-productForm.addEventListener("submit", determineCrudMode);
+document
+  .querySelector("#confirm-edit-btn")
+  .addEventListener("click", (event) => {
+    const id = event.target.dataset.id;
+    updateProduct(id);
+  });
+
+productForm.addEventListener("submit", createNewProduct);
 
 // END OF EVENT LISTENERS
-
-// EVENT LISTENER CALLBACKS
-
-function determineCrudMode(event) {
-  event.preventDefault();
-  let newProduct = gatherFormData();
-  if (newProduct) {
-    if (currentProductId) {
-      updateProduct({ id: currentProductId, ...newProduct });
-    } else {
-      createNewProduct(newProduct);
-    }
-  }
-}
-// END OF EVENT LISTENER CALLBACKS
 
 export function resetPagination() {
   currentPage = 1;
