@@ -24,7 +24,7 @@ export function generateQueryParams(
 }
 
 export function createPagination(productCount) {
-  const pageCount = Math.floor(productCount / DEFAULT_PAGE_COUNT);
+  const pageCount = Math.ceil(productCount / DEFAULT_PAGE_COUNT);
   let lis = "";
   for (let i = 1; i <= pageCount; i++) {
     lis += `<li class="page-item ${
