@@ -199,13 +199,9 @@ function editProduct(product) {
 async function viewProduct(product) {
   const productWithDetails = await readProduct(product.id);
   const viewModal = document.querySelector("#viewModal .modal-body");
-  viewModal.innerHTML = `
-  <div class="card p-3 m-3">
-  <div class="row"><div class="col-4"><strong>Description</strong></div><div class="col-8">${productWithDetails.description}</div></div>
-  </div>
-  <div class="card p-3 m-3">
-  <div class="row"><div class="col-4"><strong>Department</strong></div><div class="col-8">${productWithDetails.department}</div></div>
-  </div>
-  <div class="card p-3 m-3"><div class="row"><div class="col-4"><strong>Material</strong></div><div class="col-8">${productWithDetails.material}</div></div>
-  </div>`;
+  viewModal.querySelector("#description").innerHTML =
+    productWithDetails.description;
+  viewModal.querySelector("#department").innerHTML =
+    productWithDetails.department;
+  viewModal.querySelector("#material").innerHTML = productWithDetails.material;
 }
