@@ -70,6 +70,32 @@ document
 
 productForm.addEventListener("submit", createNewProduct);
 
+document.getElementById("file-input").addEventListener("change", (e) => {
+  if (e.target.files) {
+    document.querySelector("#product-display").src = URL.createObjectURL(
+      e.target.files[0]
+    );
+  }
+});
+
+document.querySelector(".image-selector").addEventListener("dragover", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+});
+document.querySelector(".image-selector").addEventListener("dragenter", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+});
+document.querySelector(".image-selector").addEventListener("drop", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  if (e.dataTransfer.files) {
+    document.querySelector("#product-display").src = URL.createObjectURL(
+      e.dataTransfer.files[0]
+    );
+  }
+});
+
 // END OF EVENT LISTENERS
 
 export function resetPagination() {

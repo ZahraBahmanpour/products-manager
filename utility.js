@@ -9,6 +9,7 @@ export function clearInputs() {
   document.querySelector("#name").value = "";
   document.querySelector("#price").value = "";
   document.querySelector("#countInStock").value = "";
+  document.querySelector("#product-display").src = "";
 }
 
 export function generateQueryParams(
