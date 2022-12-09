@@ -29,6 +29,9 @@ export async function createNewProduct() {
     const createdProduct = await res.json();
     addToDOM(createdProduct);
     clearInputs();
+    // const formData = new FormData();
+    // formData.append("image", document.querySelector("#file-input").files[0]);
+    // await fetch(`${API_URL}/upload`, { method: "POST", body: formData });
   } catch (error) {
     showToast("Problem occured while creating new product");
     console.log(error.message);
