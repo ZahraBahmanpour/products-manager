@@ -4,7 +4,7 @@ import {
   readProducts,
   updateProduct,
 } from "./api.js";
-import { debounce, gatherFormData, clearInputs } from "./utility.js";
+import { debounce, clearInputs } from "./utility.js";
 
 export let queryString;
 export let currentSort;
