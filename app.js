@@ -46,13 +46,17 @@ document.querySelector("#sortType").addEventListener("change", (event) => {
   resetPagination();
 });
 
-document.querySelector("ul.pagination").addEventListener("click", (event) => {
-  const lis = document.querySelectorAll(".page-item");
-  lis.forEach((li) => li.classList.remove("active"));
-  event.target.parentElement.classList.add("active");
-  currentPage = Number(event.target.innerText);
-  readProducts();
-});
+document
+  .querySelector("ul.pagination")
+  .addEventListener("click", async (event) => {
+    event.preventDefault();
+    const lis = document.querySelectorAll(".page-item");
+    lis.forEach((li) => li.classList.remove("active"));
+    event.target.parentElement.classList.add("active");
+    currentPage = Number(event.target.innerText);
+    await readProducts();
+    window.scrollTo({ top: document.body.scrollHeight });
+  });
 
 document
   .querySelector("#confirm-delete-btn")
