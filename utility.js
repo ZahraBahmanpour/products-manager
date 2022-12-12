@@ -5,26 +5,26 @@ const DEFAULT_PAGE_COUNT = 10;
 const SORT_BY_NAME = "name";
 const SORT_BY_CREATE_DATE = "createdAt";
 
-export function clearInputs() {
+export const clearInputs = () => {
   document.querySelector("#name").value = "";
   document.querySelector("#price").value = "";
   document.querySelector("#countInStock").value = "";
   document.querySelector("#product-display").src = "";
-}
+};
 
-export function generateQueryParams(
+export const generateQueryParams = (
   page = 1,
   sort = SORT_BY_NAME,
   queryString = ""
-) {
+) => {
   let queryParams = `?page=${page}&limit=${DEFAULT_PAGE_COUNT}&sortBy=${sort}`;
   if (queryString !== "") {
     queryParams += `&name=${queryString}`;
   }
   return queryParams;
-}
+};
 
-export function createPagination(productCount) {
+export const createPagination = (productCount) => {
   const pageCount = Math.ceil(productCount / DEFAULT_PAGE_COUNT);
   let lis = "";
   for (let i = 1; i <= pageCount; i++) {
@@ -33,9 +33,9 @@ export function createPagination(productCount) {
     }"><a href="#" class="page-link">${i}</a></li>`;
   }
   document.querySelector("ul.pagination").innerHTML = lis;
-}
+};
 
-export function showToast(message, color = "red") {
+export const showToast = (message, color = "red") => {
   let gradiantColor =
     "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))";
   if (color === "green") {
@@ -53,19 +53,19 @@ export function showToast(message, color = "red") {
     style: {
       background: gradiantColor,
     },
-    onClick: function () {},
+    onClick: () => {},
   }).showToast();
-}
+};
 
-export function debounce(cb, delay = 1000) {
+export const debounce = (cb, delay = 1000) => {
   let timeout;
   return (...args) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => cb(...args), delay);
   };
-}
+};
 
-export function gatherFormData() {
+export const gatherFormData = () => {
   const { name, price, countInStock } = event.target;
   if (name.value !== "" && price.value !== "" && countInStock !== "") {
     return {
@@ -75,9 +75,9 @@ export function gatherFormData() {
     };
   }
   return undefined;
-}
+};
 
-export function gatherEditFormData() {
+export const gatherEditFormData = () => {
   const name = productEditModal.querySelector("#name");
   const price = productEditModal.querySelector("#price");
   const countInStock = productEditModal.querySelector("#countInStock");
@@ -89,4 +89,4 @@ export function gatherEditFormData() {
     };
   }
   return undefined;
-}
+};

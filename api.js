@@ -14,7 +14,7 @@ const productsTable = document.querySelector("#products tbody");
 export const productEditModal = document.querySelector("#editModal");
 
 /////// CREATE ///////
-export async function createNewProduct() {
+export const createNewProduct = async () => {
   event.preventDefault();
   let newProduct = gatherFormData();
   try {
@@ -36,10 +36,10 @@ export async function createNewProduct() {
     showToast("Problem occured while creating new product");
     console.log(error.message);
   }
-}
+};
 
 // READ
-export async function readProducts() {
+export const readProducts = async () => {
   productsTable.innerHTML = "";
   try {
     const res = await fetch(
@@ -57,8 +57,8 @@ export async function readProducts() {
     showToast("Problem occured while reading products!");
     console.log(error.message);
   }
-}
-async function readProduct(id) {
+};
+const readProduct = async (id) => {
   try {
     const res = await fetch(`${API_URL}/products/${id}`);
     return res.json();
@@ -66,9 +66,9 @@ async function readProduct(id) {
     showToast("Problem occured while reading product details!");
     console.log(error.message);
   }
-}
+};
 /////// UPDATE ///////
-export async function updateProduct(id) {
+export const updateProduct = async (id) => {
   const updatedProduct = gatherEditFormData();
   try {
     const updatedItem = await updateOnBackend(updatedProduct, id);
@@ -77,9 +77,9 @@ export async function updateProduct(id) {
     showToast("Problem occured while updating product!");
     console.log(error.message);
   }
-}
+};
 
-async function updateOnBackend(updatedProduct, id) {
+const updateOnBackend = async (updatedProduct, id) => {
   const res = await fetch(`${API_URL}/products/${id}`, {
     method: "PUT",
     body: JSON.stringify(updatedProduct),
@@ -88,9 +88,9 @@ async function updateOnBackend(updatedProduct, id) {
     },
   });
   return await res.json();
-}
+};
 
-function updateOnFrontEnd(product) {
+const updateOnFrontEnd = (product) => {
   const productRow = productsTable.querySelector(`tr[data-id="${product.id}"]`);
   productRow.innerHTML = "";
   const { nameCell, priceCell, countCell, createDateCell, actionCell } =
@@ -103,9 +103,9 @@ function updateOnFrontEnd(product) {
   document.querySelector("#btn-add-product").innerHTML = "Add Product";
   clearInputs();
   showToast("Successfully Updated", "green");
-}
+};
 /////// DELETE ///////
-export async function deleteProduct(productId) {
+export const deleteProduct = async (productId) => {
   try {
     const res = await fetch(`${API_URL}/products/${productId}`, {
       method: "DELETE",
@@ -117,10 +117,10 @@ export async function deleteProduct(productId) {
     showToast("Problem occured deleting the product!");
     console.log(error.message);
   }
-}
+};
 
 // UPDATE DOM
-function addToDOM(product) {
+const addToDOM = (product) => {
   const productRow = document.createElement("tr");
   productRow.dataset.id = product.id;
   productRow.style.lineHeight = "40px";
@@ -134,9 +134,9 @@ function addToDOM(product) {
   productRow.appendChild(actionCell);
 
   productsTable.appendChild(productRow);
-}
+};
 
-function generateTableCells(product) {
+const generateTableCells = (product) => {
   const nameCell = document.createElement("td");
   nameCell.innerHTML = product.name;
   nameCell.title = product.name;
@@ -186,20 +186,20 @@ function generateTableCells(product) {
   actionCell.appendChild(editButton);
   actionCell.appendChild(deleteButton);
   return { nameCell, priceCell, countCell, createDateCell, actionCell };
-}
+};
 
-function removeProduct(id) {
+const removeProduct = (id) => {
   document.querySelector("#confirm-delete-btn").dataset.id = id;
-}
+};
 
-function editProduct(product) {
+const editProduct = (product) => {
   productEditModal.querySelector("#name").value = product.name;
   productEditModal.querySelector("#price").value = product.price;
   productEditModal.querySelector("#countInStock").value = product.countInStock;
   productEditModal.querySelector("#confirm-edit-btn").dataset.id = product.id;
-}
+};
 
-async function viewProduct(product) {
+const viewProduct = async (product) => {
   const productWithDetails = await readProduct(product.id);
   const viewModal = document.querySelector("#viewModal .modal-body");
   viewModal.querySelector("#description").innerHTML =
@@ -207,4 +207,4 @@ async function viewProduct(product) {
   viewModal.querySelector("#department").innerHTML =
     productWithDetails.department;
   viewModal.querySelector("#material").innerHTML = productWithDetails.material;
-}
+};

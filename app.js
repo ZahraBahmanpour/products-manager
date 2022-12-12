@@ -98,9 +98,9 @@ document.querySelector(".image-selector").addEventListener("drop", (e) => {
 
 // END OF EVENT LISTENERS
 
-export function resetPagination() {
+export const resetPagination = () => {
   currentPage = 1;
   const lis = document.querySelectorAll(".page-item");
   lis.forEach((li) => li.classList.remove("active"));
   lis[0].classList.add("active");
-}
+};
