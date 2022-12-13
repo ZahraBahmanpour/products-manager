@@ -40,8 +40,10 @@ export const createNewProduct = async () => {
 
 // READ
 export const readProducts = async () => {
-  productsTable.innerHTML = "";
+  const loadingSpinner = document.querySelector(".spinner-container");
   try {
+    loadingSpinner.classList.remove("d-none");
+    loadingSpinner.classList.add("d-block");
     const res = await fetch(
       `${API_URL}/products${generateQueryParams(
         currentPage,
@@ -51,7 +53,10 @@ export const readProducts = async () => {
     );
     const data = await res.json();
     const { products, count } = data;
+    loadingSpinner.classList.remove("d-block");
+    loadingSpinner.classList.add("d-none");
     createPagination(count);
+    productsTable.innerHTML = "";
     products.forEach(addToDOM);
   } catch (error) {
     showToast("Problem occured while reading products!");
