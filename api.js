@@ -13,6 +13,9 @@ const API_URL = "https://6300a18859a8760a757d441c.mockapi.io";
 const productsTable = document.querySelector("#products tbody");
 export const productEditModal = document.querySelector("#editModal");
 
+export const controller = new AbortController();
+const signal = controller.signal;
+
 /////// CREATE ///////
 export const createNewProduct = async () => {
   event.preventDefault();
@@ -49,7 +52,8 @@ export const readProducts = async () => {
         currentPage,
         currentSort,
         queryString
-      )}`
+      )}`,
+      { signal }
     );
     const data = await res.json();
     const { products, count } = data;
@@ -59,8 +63,13 @@ export const readProducts = async () => {
     productsTable.innerHTML = "";
     products.forEach(addToDOM);
   } catch (error) {
-    showToast("Problem occured while reading products!");
-    console.log(error.message);
+    if (error.name === "AbortError") {
+      loadingSpinner.classList.remove("d-block");
+      loadingSpinner.classList.add("d-none");
+    } else {
+      showToast("Problem occured while reading products!");
+      console.log(error.message);
+    }
   }
 };
 const readProduct = async (id) => {

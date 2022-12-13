@@ -3,6 +3,7 @@ import {
   deleteProduct,
   readProducts,
   updateProduct,
+  controller,
 } from "./api.js";
 import { debounce, clearInputs } from "./utility.js";
 
@@ -100,6 +101,10 @@ document.querySelector(".image-selector").addEventListener("drop", (e) => {
       e.dataTransfer.files[0]
     );
   }
+});
+
+document.querySelector("#cancel-request").addEventListener("click", () => {
+  controller.abort();
 });
 
 // END OF EVENT LISTENERS
