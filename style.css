@@ -45,3 +45,10 @@ table {
   top: 50%;
   z-index: 1000;
 }
+
+.spinner-container button {
+  position: absolute;
+  left: calc(50% - 20px);
+  top: calc(50% + 50px);
+  z-index: 1000;
+}
