@@ -107,6 +107,8 @@ document.querySelector("#cancel-request").addEventListener("click", () => {
   controller.abort();
 });
 
+document.querySelector("#refresh-btn").addEventListener("click", readProducts);
+
 // END OF EVENT LISTENERS
 
 export const resetPagination = () => {
