@@ -45,8 +45,7 @@ export const createNewProduct = async () => {
 export const readProducts = async () => {
   const loadingSpinner = document.querySelector(".spinner-container");
   try {
-    loadingSpinner.classList.remove("d-none");
-    loadingSpinner.classList.add("d-block");
+    loadingSpinner.classList.toggle("d-none");
     const res = await fetch(
       `${API_URL}/products${generateQueryParams(
         currentPage,
@@ -57,19 +56,16 @@ export const readProducts = async () => {
     );
     const data = await res.json();
     const { products, count } = data;
-    loadingSpinner.classList.remove("d-block");
-    loadingSpinner.classList.add("d-none");
+    loadingSpinner.classList.toggle("d-none");
     createPagination(count);
     productsTable.innerHTML = "";
     products.forEach(addToDOM);
   } catch (error) {
-    if (error.name === "AbortError") {
-      loadingSpinner.classList.remove("d-block");
-      loadingSpinner.classList.add("d-none");
-    } else {
+    if (error.name !== "AbortError") {
       showToast("Problem occured while reading products!");
       console.log(error.message);
     }
+    loadingSpinner.classList.toggle("d-none");
   }
 };
 const readProduct = async (id) => {
