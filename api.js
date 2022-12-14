@@ -56,7 +56,6 @@ export const readProducts = async () => {
     );
     const data = await res.json();
     const { products, count } = data;
-    loadingSpinner.classList.toggle("d-none");
     createPagination(count);
     productsTable.innerHTML = "";
     products.forEach(addToDOM);
@@ -65,6 +64,7 @@ export const readProducts = async () => {
       showToast("Problem occured while reading products!");
       console.log(error.message);
     }
+  } finally {
     loadingSpinner.classList.toggle("d-none");
   }
 };
