@@ -24,11 +24,11 @@ document.querySelector("#btn-reset").addEventListener("click", () => {
   productForm.querySelector("#btn-add-product").innerHTML = "Add Product";
 });
 
-document.querySelector("#price").addEventListener("keypress", (event) => {
+productForm.querySelector("#price").addEventListener("keypress", (event) => {
   if (event.keyCode < 46 || event.keyCode > 57) event.preventDefault();
 });
 
-document
+productForm
   .querySelector("#countInStock")
   .addEventListener("keypress", (event) => {
     if (event.keyCode < 46 || event.keyCode > 57) event.preventDefault();

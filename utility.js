@@ -1,15 +1,15 @@
 import { productEditModal } from "./api.js";
-import { currentPage } from "./app.js";
+import { currentPage, productForm } from "./app.js";
 
 const DEFAULT_PAGE_COUNT = 10;
 const SORT_BY_NAME = "name";
 const SORT_BY_CREATE_DATE = "createdAt";
 
 export const clearInputs = () => {
-  document.querySelector("#name").value = "";
-  document.querySelector("#price").value = "";
-  document.querySelector("#countInStock").value = "";
-  document.querySelector("#product-display").src = "";
+  productForm.querySelector("#name").value = "";
+  productForm.querySelector("#price").value = "";
+  productForm.querySelector("#countInStock").value = "";
+  productForm.querySelector("#product-display").src = "";
 };
 
 export const generateQueryParams = (
