@@ -62,6 +62,15 @@ export const readProducts = async () => {
   } catch (error) {
     if (error.name !== "AbortError") {
       showToast("Problem occured while reading products!");
+      // if (window.Notification && Notification.permission !== "denied") {
+      //   Notification.requestPermission(function (status) {
+      //     // status is "granted", if accepted by user
+      //     var n = new Notification("Title", {
+      //       body: "I am the body text!",
+      //       icon: "/path/to/icon.png", // optional
+      //     });
+      //   });
+      // }
       console.log(error.message);
     }
   } finally {
