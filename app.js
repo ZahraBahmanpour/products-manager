@@ -19,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   readProducts();
 });
 
-document.querySelector("#btn-reset").addEventListener("click", () => {
+productForm.querySelector("#btn-reset").addEventListener("click", () => {
   clearInputs();
-  productForm.querySelector("#btn-add-product").innerHTML = "Add Product";
 });
 
 productForm.querySelector("#price").addEventListener("keypress", (event) => {
