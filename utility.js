@@ -29,7 +29,7 @@ export const createPagination = (productCount) => {
   let lis = "";
   for (let i = 1; i <= pageCount; i++) {
     lis += `<li class="page-item ${
-      i === currentPage ? "active" : ""
+      i === Number(currentPage) ? "active" : ""
     }"><a href="#" class="page-link">${i}</a></li>`;
   }
   document.querySelector("ul.pagination").innerHTML = lis;

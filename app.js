@@ -9,7 +9,7 @@ import { debounce, clearInputs } from "./utility.js";
 
 export let queryString;
 export let currentSort;
-export let currentPage = 1;
+export let currentPage = localStorage.getItem("currentPage") ?? 1;
 
 export const productForm = document.querySelector("#create-product");
 
@@ -54,6 +54,7 @@ document
     lis.forEach((li) => li.classList.remove("active"));
     event.target.parentElement.classList.add("active");
     currentPage = Number(event.target.innerText);
+    localStorage.setItem("currentPage", currentPage);
     await readProducts();
     window.scrollTo({ top: document.body.scrollHeight });
   });
