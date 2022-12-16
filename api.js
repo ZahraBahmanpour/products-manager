@@ -12,6 +12,7 @@ const API_URL = "https://6300a18859a8760a757d441c.mockapi.io";
 
 const productsTable = document.querySelector("#products tbody");
 export const productEditModal = document.querySelector("#editModal");
+export const viewModal = document.querySelector("#viewModal .modal-body");
 
 export const controller = new AbortController();
 const signal = controller.signal;
@@ -220,7 +221,6 @@ const editProduct = (product) => {
 
 const viewProduct = async (product) => {
   const productWithDetails = await readProduct(product.id);
-  const viewModal = document.querySelector("#viewModal .modal-body");
   viewModal.querySelector("#description").innerHTML =
     productWithDetails.description;
   viewModal.querySelector("#department").innerHTML =

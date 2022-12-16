@@ -4,6 +4,7 @@ import {
   readProducts,
   updateProduct,
   controller,
+  viewModal,
 } from "./api.js";
 import { debounce, clearInputs } from "./utility.js";
 
@@ -108,6 +109,14 @@ document.querySelector("#cancel-request").addEventListener("click", () => {
 });
 
 document.querySelector("#refresh-btn").addEventListener("click", readProducts);
+
+document
+  .querySelector("#view-modal-close-btn")
+  .addEventListener("click", () => {
+    viewModal.querySelector("#description").innerHTML = "";
+    viewModal.querySelector("#department").innerHTML = "";
+    viewModal.querySelector("#material").innerHTML = "";
+  });
 
 // END OF EVENT LISTENERS
 
