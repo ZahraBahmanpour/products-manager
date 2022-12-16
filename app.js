@@ -51,10 +51,29 @@ document
   .querySelector("ul.pagination")
   .addEventListener("click", async (event) => {
     event.preventDefault();
+
     const lis = document.querySelectorAll(".page-item");
     lis.forEach((li) => li.classList.remove("active"));
-    event.target.parentElement.classList.add("active");
-    currentPage = Number(event.target.innerText);
+    if (event.target.parentElement.id === "previous") {
+      const page = Number(localStorage.getItem("currentPage")) - 1 ?? 1;
+      currentPage = page === 0 ? 1 : page;
+      event.currentTarget
+        .querySelector(`#page-${currentPage}`)
+        .classList.add("active");
+    } else if (event.target.parentElement.id === "next") {
+      const page = Number(localStorage.getItem("currentPage")) + 1 ?? 1;
+      currentPage =
+        page > event.target.parentElement.dataset.pageCount
+          ? event.target.parentElement.dataset.pageCount
+          : page;
+      event.currentTarget
+        .querySelector(`#page-${currentPage}`)
+        .classList.add("active");
+    } else {
+      event.target.parentElement.classList.add("active");
+      currentPage = Number(event.target.innerText);
+    }
+
     localStorage.setItem("currentPage", currentPage);
     await readProducts();
     window.scrollTo({ top: document.body.scrollHeight });

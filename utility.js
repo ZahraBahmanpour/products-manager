@@ -26,12 +26,20 @@ export const generateQueryParams = (
 
 export const createPagination = (productCount) => {
   const pageCount = Math.ceil(productCount / DEFAULT_PAGE_COUNT);
-  let lis = "";
+
+  let lis = `<li class="page-item" id="previous">
+              <a class="page-link" href="#" aria-label="Previous">&laquo;</a>
+            </li>`;
+
   for (let i = 1; i <= pageCount; i++) {
-    lis += `<li class="page-item ${
+    lis += `<li id="page-${i}" class="page-item ${
       i === Number(currentPage) ? "active" : ""
     }"><a href="#" class="page-link">${i}</a></li>`;
   }
+
+  lis += `<li class="page-item" id="next" data-page-count="${pageCount}">
+            <a class="page-link" href="#" aria-label="Next">&raquo;</a>
+          </li>`;
   document.querySelector("ul.pagination").innerHTML = lis;
 };
 
