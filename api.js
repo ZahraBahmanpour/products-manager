@@ -11,7 +11,7 @@ import {
 const API_URL = "https://6300a18859a8760a757d441c.mockapi.io";
 
 const productsTable = document.querySelector("#products tbody");
-export const productEditModal = document.querySelector("#editModal");
+export const editModal = document.querySelector("#editModal");
 export const viewModal = document.querySelector("#viewModal .modal-body");
 
 export const controller = new AbortController();
@@ -213,10 +213,10 @@ const removeProduct = (id) => {
 };
 
 const editProduct = (product) => {
-  productEditModal.querySelector("#name").value = product.name;
-  productEditModal.querySelector("#price").value = product.price;
-  productEditModal.querySelector("#countInStock").value = product.countInStock;
-  productEditModal.querySelector("#confirm-edit-btn").dataset.id = product.id;
+  editModal.querySelector("#name").value = product.name;
+  editModal.querySelector("#price").value = product.price;
+  editModal.querySelector("#countInStock").value = product.countInStock;
+  editModal.querySelector("#confirm-edit-btn").dataset.id = product.id;
 };
 
 const viewProduct = async (product) => {

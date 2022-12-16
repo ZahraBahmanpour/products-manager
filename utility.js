@@ -1,4 +1,4 @@
-import { productEditModal } from "./api.js";
+import { editModal } from "./api.js";
 import { currentPage, productForm } from "./app.js";
 
 const DEFAULT_PAGE_COUNT = 10;
@@ -78,9 +78,9 @@ export const gatherFormData = () => {
 };
 
 export const gatherEditFormData = () => {
-  const name = productEditModal.querySelector("#name");
-  const price = productEditModal.querySelector("#price");
-  const countInStock = productEditModal.querySelector("#countInStock");
+  const name = editModal.querySelector("#name");
+  const price = editModal.querySelector("#price");
+  const countInStock = editModal.querySelector("#countInStock");
   if (name.value !== "" && price.value !== "" && countInStock !== "") {
     return {
       name: name.value,
