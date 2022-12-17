@@ -55,3 +55,7 @@ table {
   top: calc(50% + 50px);
   z-index: 1000;
 }
+
+.no-events {
+  pointer-events: none;
+}

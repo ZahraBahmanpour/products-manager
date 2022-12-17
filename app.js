@@ -51,7 +51,9 @@ document
   .querySelector("ul.pagination")
   .addEventListener("click", async (event) => {
     event.preventDefault();
-
+    if (event.target.className.includes("pagination")) {
+      return;
+    }
     const lis = document.querySelectorAll(".page-item");
     lis.forEach((li) => li.classList.remove("active"));
     if (event.target.parentElement.id === "previous") {

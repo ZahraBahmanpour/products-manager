@@ -27,7 +27,9 @@ export const generateQueryParams = (
 export const createPagination = (productCount) => {
   const pageCount = Math.ceil(productCount / DEFAULT_PAGE_COUNT);
 
-  let lis = `<li class="page-item" id="previous">
+  let lis = `<li class="page-item ${
+    Number(currentPage) === 1 ? "disabled no-events" : ""
+  }" id="previous">
               <a class="page-link" href="#" aria-label="Previous">&laquo;</a>
             </li>`;
 
@@ -37,7 +39,9 @@ export const createPagination = (productCount) => {
     }"><a href="#" class="page-link">${i}</a></li>`;
   }
 
-  lis += `<li class="page-item" id="next" data-page-count="${pageCount}">
+  lis += `<li class="page-item ${
+    Number(currentPage) === pageCount ? "disabled no-events" : ""
+  }" id="next" data-page-count="${pageCount}">
             <a class="page-link" href="#" aria-label="Next">&raquo;</a>
           </li>`;
   document.querySelector("ul.pagination").innerHTML = lis;
