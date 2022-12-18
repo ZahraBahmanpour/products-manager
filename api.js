@@ -1,4 +1,9 @@
-import { queryString, currentSort, currentPage } from "./app.js";
+import {
+  queryString,
+  currentSort,
+  currentPage,
+  currentPageSize,
+} from "./app.js";
 import {
   clearInputs,
   createPagination,
@@ -51,13 +56,14 @@ export const readProducts = async () => {
       `${API_URL}/products${generateQueryParams(
         currentPage,
         currentSort,
-        queryString
+        queryString,
+        currentPageSize
       )}`,
       { signal }
     );
     const data = await res.json();
     const { products, count } = data;
-    createPagination(count);
+    createPagination(count, currentPageSize);
     productsTable.innerHTML = "";
     products.forEach(addToDOM);
   } catch (error) {

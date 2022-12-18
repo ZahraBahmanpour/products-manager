@@ -66,9 +66,15 @@
         </thead>
         <tbody></tbody>
       </table>
-      <nav class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center gx-2" style="height: 2.3rem;">
         <ul class="pagination"></ul>
-      </nav>
+        <select class="form-select" id="page-size" style="width: 1rem;">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
 
       <!-- Delete Modal -->
       <div class="modal fade" id="deleteModal" tabindex="-1">

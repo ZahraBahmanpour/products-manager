@@ -59,3 +59,8 @@ table {
 .no-events {
   pointer-events: none;
 }
+
+#page-size {
+  background: white;
+  cursor: pointer;
+}

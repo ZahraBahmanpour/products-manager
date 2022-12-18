@@ -1,7 +1,7 @@
 import { editModal } from "./api.js";
-import { currentPage, productForm } from "./app.js";
+import { currentPage, currentPageSize, productForm } from "./app.js";
 
-const DEFAULT_PAGE_COUNT = 10;
+export const DEFAULT_PAGE_SIZE = 10;
 const SORT_BY_NAME = "name";
 const SORT_BY_CREATE_DATE = "createdAt";
 
@@ -15,9 +15,10 @@ export const clearInputs = () => {
 export const generateQueryParams = (
   page = 1,
   sort = SORT_BY_NAME,
-  queryString = ""
+  queryString = "",
+  pageSize
 ) => {
-  let queryParams = `?page=${page}&limit=${DEFAULT_PAGE_COUNT}&sortBy=${sort}`;
+  let queryParams = `?page=${page}&limit=${pageSize}&sortBy=${sort}`;
   if (queryString !== "") {
     queryParams += `&name=${queryString}`;
   }
@@ -25,7 +26,7 @@ export const generateQueryParams = (
 };
 
 export const createPagination = (productCount) => {
-  const pageCount = Math.ceil(productCount / DEFAULT_PAGE_COUNT);
+  const pageCount = Math.ceil(productCount / currentPageSize);
 
   let lis = `<li class="page-item ${
     Number(currentPage) === 1 ? "disabled no-events" : ""

@@ -6,12 +6,12 @@ import {
   controller,
   viewModal,
 } from "./api.js";
-import { debounce, clearInputs } from "./utility.js";
+import { debounce, clearInputs, DEFAULT_PAGE_SIZE } from "./utility.js";
 
 export let queryString;
 export let currentSort;
 export let currentPage = localStorage.getItem("currentPage") ?? 1;
-
+export let currentPageSize = DEFAULT_PAGE_SIZE;
 export const productForm = document.querySelector("#create-product");
 
 // EVENT LISTENERS
@@ -139,6 +139,12 @@ document
     viewModal.querySelector("#material").innerHTML = "";
   });
 
+document.querySelector("#page-size").addEventListener("change", async (e) => {
+  currentPageSize = e.target.value;
+  currentPage = 1;
+  localStorage.setItem("currentPage", currentPage);
+  readProducts();
+});
 // END OF EVENT LISTENERS
 
 export const resetPagination = () => {
