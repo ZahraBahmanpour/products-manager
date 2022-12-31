@@ -94,11 +94,17 @@ export const gatherEditFormData = () => {
   const name = editModal.querySelector("#name");
   const price = editModal.querySelector("#price");
   const countInStock = editModal.querySelector("#countInStock");
+  const description = editModal.querySelector("#description");
+  const department = editModal.querySelector("#department");
+  const material = editModal.querySelector("#material");
   if (name.value !== "" && price.value !== "" && countInStock !== "") {
     return {
       name: name.value,
       price: price.value,
       countInStock: countInStock.value,
+      description: description.value,
+      department: department.value,
+      material: material.value,
     };
   }
   return undefined;

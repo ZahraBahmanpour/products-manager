@@ -222,6 +222,9 @@ const editProduct = (product) => {
   editModal.querySelector("#name").value = product.name;
   editModal.querySelector("#price").value = product.price;
   editModal.querySelector("#countInStock").value = product.countInStock;
+  editModal.querySelector("#description").value = product.description;
+  editModal.querySelector("#department").value = product.department;
+  editModal.querySelector("#material").value = product.material;
   editModal.querySelector("#confirm-edit-btn").dataset.id = product.id;
 };
 
