@@ -227,6 +227,9 @@ const editProduct = (product) => {
 
 const viewProduct = async (product) => {
   const productWithDetails = await readProduct(product.id);
+  viewModal.querySelector("#name").innerHTML = productWithDetails.name;
+  viewModal.querySelector("#price").innerHTML = productWithDetails.price;
+  viewModal.querySelector("#countInStock").innerHTML = productWithDetails.countInStock;
   viewModal.querySelector("#description").innerHTML =
     productWithDetails.description;
   viewModal.querySelector("#department").innerHTML =
