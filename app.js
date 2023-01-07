@@ -41,11 +41,16 @@ document.querySelector("#searchBox").addEventListener("input", (event) => {
   resetPagination();
 });
 
-document.querySelector("#sortType").addEventListener("change", (event) => {
-  currentSort = event.target.value;
-  readProducts();
-  resetPagination();
-});
+document.querySelectorAll("table thead i").forEach((sortIcon) =>
+  sortIcon.addEventListener("click", (event) => {
+    const sortField = event.target.id.split("-")[2];
+    if (sortField) {
+      currentSort = sortField;
+      readProducts();
+      resetPagination();
+    }
+  })
+);
 
 document
   .querySelector("ul.pagination")
