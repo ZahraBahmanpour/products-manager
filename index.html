@@ -32,7 +32,7 @@
   <body>
     <div class="container">
       <div class="row justify-content-center align-items-center m-5">
-        <div class="col-6">
+        <div class="col-8">
           <input
             type="text"
             class="form-control"
@@ -41,15 +41,6 @@
           />
         </div>
         <div class="col-4">
-          <div class="d-flex align-items-center">
-            <label for="sortType" style="min-width: 60px">Sort By</label>
-            <select id="sortType" class="form-select">
-              <option selected value="name">Name</option>
-              <option value="createdAt">Create Date</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-2">
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">Add<i class="bi bi-plus"></i></button>
           <button class="btn btn-secondary" id="refresh-btn">Refresh<i class="bi bi-arrow-clockwise"></i></button>
         </div>
@@ -57,10 +48,10 @@
       <table class="table bg-white table-hover rounded" id="products">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Count In Stock</th>
-            <th>Create Date</th>
+            <th><i class="bi bi-sort-down-alt p-2" id="table-sort-name"></i>Name</th>
+            <th><i class="bi bi-sort-down-alt p-2" id="table-sort-price"></i>Price</th>
+            <th><i class="bi bi-sort-down-alt p-2" id="table-sort-countInStock"></i>Count In Stock</th>
+            <th><i class="bi bi-sort-down-alt p-2" id="table-sort-createdAt"></i>Create Date</th>
             <th>Actions</th>
           </tr>
         </thead>
