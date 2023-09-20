@@ -127,6 +127,7 @@ document.querySelector(".image-selector").addEventListener("drop", (e) => {
     document.querySelector("#product-display").src = URL.createObjectURL(
       e.dataTransfer.files[0]
     );
+    document.getElementById("file-input").files = e.dataTransfer.files;
   }
 });
 
